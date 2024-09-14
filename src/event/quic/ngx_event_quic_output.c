@@ -425,6 +425,9 @@ ngx_quic_send_segments(ngx_connection_t *c, u_char *buf, size_t len,
     cmsg = CMSG_FIRSTHDR(&msg);
 
     cmsg->cmsg_level = SOL_UDP;
+#ifndef UDP_SEGMENT
+#define UDP_SEGMENT 103
+#endif      
     cmsg->cmsg_type = UDP_SEGMENT;
     cmsg->cmsg_len = CMSG_LEN(sizeof(uint16_t));
 
